@@ -1,41 +1,38 @@
-import { Component, ReactElement } from 'react';
+import { Component, ReactElement, useState } from 'react';
+import _uniqueId from 'lodash/uniqueId';
 import Todo from '../../components/todo/todo';
 import Main from '../main/main';
+type TodoItem = {
+    id: string;
+    text: string;
+    isDone: boolean;
+}
 
-class Todos extends Component {
-    todos: ReactElement[] = [];
-    enteredText = '';
-
-    constructor(props: {} | Readonly<{}>) {
-        super(props);
-        this.todos = [];
-        this.enteredText = '';
-        this.state = {todos: []}; 
-    }
-
-    handlePress(event: React.KeyboardEvent<HTMLInputElement>) {
+function Todos() {
+    const initData: TodoItem[] = [];
+    const [todoItems, setTodoItems] = useState(initData);
+    const handlePress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            this.todos.push(<Todo id={this.todos.length + 1 } text={this.enteredText} />)
-            this.setEnteredText('');
-            this.setState({todos: this.todos});
+            setTodoItems([...todoItems, {id: _uniqueId(), text: event.currentTarget.value, isDone: false}]);
+            event.currentTarget.value = '';
         }
-    };
-
-    setEnteredText(text: string) {
-        this.enteredText = text;
     }
 
-    render () {
-        return (
-            <header className='header'>
-                <h1>todos</h1>
-                <input type='text' className='new-todo' placeholder='What needs to be done?' onKeyPress={(e) => this.handlePress(e)} onChange={(e) => this.setEnteredText(e.target.value)} />
-                <Main>
-                    {this.todos}
-                </Main>
-            </header>
-        );
-    }    
+    return (
+        <header className='header'>
+        <h1>todos</h1>
+        <input type='text' 
+            className='new-todo' 
+            placeholder='What needs to be done?' 
+            onKeyPress={handlePress}
+        />
+        {todoItems.length == 0 ? null :
+        <Main>
+            {todoItems.map((item) => <Todo id={item.id} text={item.text} isDone={item.isDone}/>)}
+        </Main>
+        }
+    </header>
+    );
 }
 
 export default Todos;
