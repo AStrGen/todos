@@ -1,3 +1,3 @@
-const cloneArray = <T extends []>(array: T[]) => [...array];
+const cloneArray = <T, >(array: T[]): T[] => [...array];
 
-export cloneArray;
+export default cloneArray;

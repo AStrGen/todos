@@ -1,8 +1,9 @@
-import { Component, ReactElement, useState } from 'react';
+import { useState } from 'react';
 import _uniqueId from 'lodash/uniqueId';
 import Todo from '../../components/todo/todo';
 import Main from '../main/main';
-import { isTemplateExpression } from 'typescript';
+import cloneArray from '../../utils';
+
 type TodoItem = {
     id: string;
     text: string;
@@ -12,10 +13,18 @@ type TodoItem = {
 function TodoList() {
     const initData: TodoItem[] = [];
     const [todoItems, setTodoItems] = useState(initData);
-    const handlePress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            setTodoItems([...todoItems, {id: _uniqueId(), text: event.currentTarget.value, done: false}]);
-            event.currentTarget.value = '';
+            if (event.currentTarget.className == "new-todo") {
+                setTodoItems([...todoItems, {id: _uniqueId(), text: event.currentTarget.value, done: false}]);
+                event.currentTarget.value = '';
+            } else {
+                let item = todoItems.find(item => item.id == event.currentTarget.id);
+                if (item) {
+                    item.text = event.currentTarget.value;
+                }
+                setTodoItems(cloneArray(todoItems));
+            }
         }
     }
 
@@ -25,7 +34,7 @@ function TodoList() {
 
     function setDone(item: TodoItem) {
         item.done = !item.done;
-        setTodoItems([...todoItems]);
+        setTodoItems(cloneArray(todoItems));
     }
 
     return (
@@ -34,11 +43,19 @@ function TodoList() {
         <input type='text' 
             className='new-todo' 
             placeholder='What needs to be done?' 
-            onKeyPress={handlePress}
+            onKeyDown={handleKey}
         />
         {todoItems.length == 0 ? null :
         <Main>
-            {todoItems.map((item) => <Todo key={_uniqueId()} id={item.id} text={item.text} done={item.done} setDoneCallback={() => setDone(item)} setDestroyedCallback={() => setDestroyed(item.id)} />)}
+            {todoItems.map((item) =>
+                <Todo
+                    id={item.id}
+                    text={item.text}
+                    done={item.done}
+                    setDoneCallback={() => setDone(item)}
+                    setDestroyedCallback={() => setDestroyed(item.id)}
+                    setTextCallback={handleKey}
+                />)}
         </Main>
         }
     </header>

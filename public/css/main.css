@@ -21,6 +21,15 @@ h1 {
 .view {
     text-align: left;
 }
+.edit {
+    position: absolute;
+    margin-top: -50px;
+    margin-left: -275px;
+    visibility: hidden;
+}
+.active {
+    visibility: visible;
+}
 ::placeholder {
     color: lightgray;
     font-style: italic;
