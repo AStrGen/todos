@@ -9,7 +9,7 @@ type TodoItem = {
     done: boolean;
 }
 
-function Todos() {
+function TodoList() {
     const initData: TodoItem[] = [];
     const [todoItems, setTodoItems] = useState(initData);
     const handlePress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -22,10 +22,12 @@ function Todos() {
     const setDestroyed = (id: string) => {
         setTodoItems(todoItems.filter(item => item.id != id));
     }
-    const setDone = (item: TodoItem) => {
+
+    function setDone(item: TodoItem) {
         item.done = !item.done;
-        setTodoItems(todoItems);
+        setTodoItems([...todoItems]);
     }
+
     return (
         <header className='header'>
         <h1>todos</h1>
@@ -43,4 +45,4 @@ function Todos() {
     );
 }
 
-export default Todos;
+export default TodoList;

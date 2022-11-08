@@ -1,9 +1,9 @@
-import Todos from './pages/todos/todos';
+import TodoList from './pages/todos/todos';
 
 export function App() {
   return (
     <section className="todoapp">
-      <Todos />
+      <TodoList />
     </section>
   );
 }
