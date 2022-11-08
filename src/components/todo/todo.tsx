@@ -1,18 +1,27 @@
-type TodoItem = {
+import { useState } from "react";
+
+type TodoItemProps = {
     id: string;
     text: string;
-    isDone: boolean;
+    done: boolean;
+    setDoneCallback: () => void;
+    setDestroyedCallback: () => void;
 }
 
-function Todo({id, text, isDone}: TodoItem) {
+function Todo({id, text, done, setDoneCallback, setDestroyedCallback}: TodoItemProps) {
+//    const [checked, setChecked] = useState(false);
+    const setDone = () => {
+//        setChecked(!checked);
+        setDoneCallback();
+    }
+
     return (
-        <li id={id}>
+        <li key={id}>
             <div className="view">
-                <input className="toggle" type="checkbox"/>
+                <input className="toggle" type="checkbox" checked={done} onChange={setDone} />
                 <label>{text}</label>
-                <button className="destroy"/>
+                <button className="destroy" onClick={setDestroyedCallback} />
             </div>
-            <input className="edit" value={text}/>
         </li>
     );
 }

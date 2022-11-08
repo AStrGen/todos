@@ -11,12 +11,15 @@ h1 {
     color: rgba(148, 93, 119, 0.432);
     margin: 0;
 }
-.new-todo {
+.new-todo, .edit, .view {
     width: 550px;
     height: 50px;
     border: none;
     background-color: white;
     font-size: 30px;
+}
+.view {
+    text-align: left;
 }
 ::placeholder {
     color: lightgray;
@@ -24,4 +27,5 @@ h1 {
 }
 ul {
     list-style: none;
+    padding-left: 0;
 }
