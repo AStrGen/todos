@@ -19,16 +19,13 @@ h1 {
     font-size: 30px;
 }
 .view {
+    user-select: none;
     text-align: left;
 }
 .edit {
     position: absolute;
     margin-top: -50px;
     margin-left: -275px;
-    visibility: hidden;
-}
-.active {
-    visibility: visible;
 }
 ::placeholder {
     color: lightgray;

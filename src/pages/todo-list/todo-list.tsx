@@ -15,16 +15,9 @@ function TodoList() {
     const [todoItems, setTodoItems] = useState(initData);
     const handleKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            if (event.currentTarget.className == "new-todo") {
-                setTodoItems([...todoItems, {id: _uniqueId(), text: event.currentTarget.value, done: false}]);
-                event.currentTarget.value = '';
-            } else {
-                let item = todoItems.find(item => item.id == event.currentTarget.id);
-                if (item) {
-                    item.text = event.currentTarget.value;
-                }
-                setTodoItems(cloneArray(todoItems));
-            }
+            if (event.currentTarget.value === "") return;
+            setTodoItems([...todoItems, {id: _uniqueId(), text: event.currentTarget.value, done: false}]);
+            event.currentTarget.value = '';
         }
     }
 
@@ -49,12 +42,10 @@ function TodoList() {
         <Main>
             {todoItems.map((item) =>
                 <Todo
-                    id={item.id}
-                    text={item.text}
-                    done={item.done}
+                    key={item.id}
+                    item={item}
                     setDoneCallback={() => setDone(item)}
                     setDestroyedCallback={() => setDestroyed(item.id)}
-                    setTextCallback={handleKey}
                 />)}
         </Main>
         }
