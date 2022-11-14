@@ -1,0 +1,36 @@
+.check__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 1.25em;
+    box-shadow: 0 0 0 0.1em lightgray;
+    margin-left: -3.5em;
+    margin-top: 0.1em;
+}
+
+.check__input:checked {
+    box-shadow: 0 0 0 0.1em darkseagreen;
+}
+
+.check__input:checked:before {
+    content: "";
+    position: absolute;
+    top: 22px; left: 6px;
+    width: 0.85em;
+    height: 0.15em;
+    background: darkseagreen;
+    transform: rotate(45deg);
+}
+
+.check__input:checked:after {
+    content: "";
+    position: absolute;
+    top: 16px; left: 9px;
+    width: 1.75em;
+    height: 0.15em;
+    background: darkseagreen;
+    transform: rotate(-60deg);
+}

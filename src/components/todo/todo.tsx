@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import _uniqueId from "lodash/uniqueId";
+import Checkbox from "../Checkbox/Checkbox";
+import DestroyButton from "../DestroyButton/DestroyButton";
 
 type TodoItemProps = {
     item: {
@@ -9,16 +10,17 @@ type TodoItemProps = {
     };
     setDoneCallback: () => void;
     setDestroyedCallback: () => void;
+    setTextCallback: (text: string) => void;
 }
 
-function Todo({item, setDoneCallback, setDestroyedCallback}: TodoItemProps) {
+function Todo({item, setDoneCallback, setDestroyedCallback, setTextCallback}: TodoItemProps) {
     const [editHidden, setEditHidden] = useState(true)
 
     const [inputText, changeInput] = useState(item.text);
-
+    const showInput = () => {};
     const setText = (event:React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            item.text = event.currentTarget.value;
+            setTextCallback(event.currentTarget.value);
             setEditHidden(true);
             if (item.text === "") {
                 setDestroyedCallback();
@@ -28,20 +30,25 @@ function Todo({item, setDoneCallback, setDestroyedCallback}: TodoItemProps) {
 
     return (
         <li key={item.id}>
-            <div className="view">
-                <input className="toggle" type="checkbox" checked={item.done} onChange={setDoneCallback}  />
-                <label onDoubleClick={() => setEditHidden(false)}>{inputText}</label>
-                <button className="destroy" onClick={setDestroyedCallback} />
-            </div>
-            <input
-                id={item.id}
-                type="text"
-                className="edit"
-                value={inputText}
-                hidden={editHidden}
-                onChange={(e) => changeInput(e.target.value)}
-                onKeyDown={setText}
-            />
+            {editHidden
+                ?   <div className="view">
+                        <Checkbox checked={item.done} onChange={setDoneCallback}/>
+                        <label onDoubleClick={() => setEditHidden(false)}>{inputText}</label>
+                        <DestroyButton onClick={setDestroyedCallback}/>
+                    </div>
+                :
+                <input
+                    autoFocus
+                    onBlur={() => setEditHidden(true)}
+                    id={item.id}
+                    type="text"
+                    className="edit"
+                    value={inputText}
+                    hidden={editHidden}
+                    onChange={(e) => changeInput(e.target.value)}
+                    onKeyDown={setText}
+                />
+            }
         </li>
     );
 }

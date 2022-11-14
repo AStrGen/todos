@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import _uniqueId from 'lodash/uniqueId';
-import Todo from '../../components/todo/todo';
-import Main from '../main/main';
+import Todo from '../../components/Todo/Todo';
+import Main from '../Main/Main';
 import cloneArray from '../../utils';
 
 type TodoItem = {
@@ -30,6 +30,11 @@ function TodoList() {
         setTodoItems(cloneArray(todoItems));
     }
 
+    function setText(item: TodoItem, text: string){
+        item.text = text;
+        setTodoItems(cloneArray(todoItems));
+    }
+
     return (
         <header className='header'>
         <h1>todos</h1>
@@ -46,6 +51,7 @@ function TodoList() {
                     item={item}
                     setDoneCallback={() => setDone(item)}
                     setDestroyedCallback={() => setDestroyed(item.id)}
+                    setTextCallback={(text: string) => setText(item, text)}
                 />)}
         </Main>
         }
