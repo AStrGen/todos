@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Checkbox from "../Checkbox/Checkbox";
 import DestroyButton from "../DestroyButton/DestroyButton";
+import "./Todo.css"
 
 type TodoItemProps = {
     item: {
@@ -18,6 +19,7 @@ function Todo({item, setDoneCallback, setDestroyedCallback, setTextCallback}: To
 
     const [inputText, changeInput] = useState(item.text);
     const showInput = () => {};
+
     const setText = (event:React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             setTextCallback(event.currentTarget.value);

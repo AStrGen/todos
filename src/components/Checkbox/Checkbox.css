@@ -2,13 +2,10 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    position: absolute;
-    width: 2.5em;
-    height: 2.5em;
-    border-radius: 1.25em;
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
     box-shadow: 0 0 0 0.1em lightgray;
-    margin-left: -3.5em;
-    margin-top: 0.1em;
 }
 
 .check__input:checked {

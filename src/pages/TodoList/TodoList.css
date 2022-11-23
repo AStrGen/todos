@@ -1,0 +1,7 @@
+.todo-list {
+    width: 100%;
+}
+view {
+    user-select: none;
+    text-align: left;
+}

@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import _uniqueId from 'lodash/uniqueId';
 import Todo from '../../components/Todo/Todo';
 import Main from '../Main/Main';
 import cloneArray from '../../utils';
+import "./TodoList.css"
+import Header from "../../components/Header/Header";
+import Footer from '../../components/Footer/Footer';
+import {Context} from "../../App";
 
 type TodoItem = {
     id: string;
@@ -11,13 +15,14 @@ type TodoItem = {
 }
 
 function TodoList() {
-    const initData: TodoItem[] = [];
+    const initData: TodoItem[] = useContext(Context);
+
     const [todoItems, setTodoItems] = useState(initData);
-    const handleKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            if (event.currentTarget.value === "") return;
-            setTodoItems([...todoItems, {id: _uniqueId(), text: event.currentTarget.value, done: false}]);
-            event.currentTarget.value = '';
+    const handleKey = ({key, currentTarget}: {key: string, currentTarget: HTMLInputElement}) => {
+        if (key === 'Enter') {
+            if (currentTarget.value === "") return;
+            setTodoItems([...todoItems, {id: _uniqueId(), text: currentTarget.value, done: false}]);
+            currentTarget.value = '';
         }
     }
 
@@ -36,26 +41,24 @@ function TodoList() {
     }
 
     return (
-        <header className='header'>
-        <h1>todos</h1>
-        <input type='text' 
-            className='new-todo' 
-            placeholder='What needs to be done?' 
-            onKeyDown={handleKey}
-        />
-        {todoItems.length == 0 ? null :
-        <Main>
-            {todoItems.map((item) =>
-                <Todo
-                    key={item.id}
-                    item={item}
-                    setDoneCallback={() => setDone(item)}
-                    setDestroyedCallback={() => setDestroyed(item.id)}
-                    setTextCallback={(text: string) => setText(item, text)}
-                />)}
-        </Main>
-        }
-    </header>
+        <>
+            <Header handleKeyCallback={handleKey} />
+            {todoItems.length > 0 &&
+            <>
+                <Main> {todoItems.map((item) =>
+                    <Todo
+                        key={item.id}
+                        item={item}
+                        setDoneCallback={() => setDone(item)}
+                        setDestroyedCallback={() => setDestroyed(item.id)}
+                        setTextCallback={(text: string) => setText(item, text)}
+                    />)}
+                </Main>
+                <Footer />
+            </>
+            }
+
+        </>
     );
 }
 

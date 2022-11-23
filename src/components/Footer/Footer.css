@@ -1,0 +1,15 @@
+.footer {
+    height: 20px;
+    display: flex;
+    justify-content: center;
+}
+.filters {
+    width: 35%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.filters li:hover{
+    border-radius: 3px;
+    border: lightpink solid 1px;
+    cursor: pointer;
+}
