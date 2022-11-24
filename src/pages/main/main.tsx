@@ -1,12 +1,10 @@
 import { ReactFragment } from "react";
+import TodoList from "../TodoList/TodoList";
 
-function Main({children}: {children: ReactFragment}){
-
+function Main(){
     return (
         <section className="main">
-            <ul className="todo-list">
-                {children}
-            </ul>
+            <TodoList />
         </section>
     );
 }

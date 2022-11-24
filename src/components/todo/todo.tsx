@@ -1,48 +1,44 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import Checkbox from "../Checkbox/Checkbox";
 import DestroyButton from "../DestroyButton/DestroyButton";
 import "./Todo.css"
+import {Context, TodoContext} from "../../App";
 
 type TodoItemProps = {
-    item: {
-        id: string;
-        text: string;
-        done: boolean;
-    };
-    setDoneCallback: () => void;
-    setDestroyedCallback: () => void;
-    setTextCallback: (text: string) => void;
+    id: string;
+    text: string;
+    done: boolean;
 }
 
-function Todo({item, setDoneCallback, setDestroyedCallback, setTextCallback}: TodoItemProps) {
+function Todo({id, text, done}: TodoItemProps) {
+    const context: TodoContext = useContext(Context);
     const [editHidden, setEditHidden] = useState(true)
+    const [inputText, changeInput] = useState(text);
 
-    const [inputText, changeInput] = useState(item.text);
-    const showInput = () => {};
-
-    const setText = (event:React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            setTextCallback(event.currentTarget.value);
-            setEditHidden(true);
-            if (item.text === "") {
-                setDestroyedCallback();
+    const setText = ({key, currentTarget}: {key: string, currentTarget: HTMLInputElement}) => {
+        if (key === 'Enter') {
+            if (currentTarget.value === "") {
+                context.todoListApi.remove(id);
+            } else {
+                context.todoApi.setText(currentTarget.value);
+                setEditHidden(true);
             }
         }
     }
 
     return (
-        <li key={item.id}>
+        <li key={id}>
             {editHidden
                 ?   <div className="view">
-                        <Checkbox checked={item.done} onChange={setDoneCallback}/>
+                        <Checkbox checked={done} onChange={() => context.todoApi.setDone}/>
                         <label onDoubleClick={() => setEditHidden(false)}>{inputText}</label>
-                        <DestroyButton onClick={setDestroyedCallback}/>
+                        <DestroyButton onClick={() => context.todoListApi.remove(id)}/>
                     </div>
                 :
                 <input
                     autoFocus
                     onBlur={() => setEditHidden(true)}
-                    id={item.id}
+                    id={id}
                     type="text"
                     className="edit"
                     value={inputText}

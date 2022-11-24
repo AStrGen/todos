@@ -1,17 +1,25 @@
 import "./Header.css"
+import {Context, TodoContext} from "../../App";
+import {useContext} from "react";
 
-type headerProps = {
-    handleKeyCallback: ({key, currentTarget}: {key: string, currentTarget: HTMLInputElement}) => void
-}
+function Header() {
+    const context: TodoContext = useContext(Context);
 
-function Header({handleKeyCallback}: headerProps) {
+    const handleKey = ({key, currentTarget}: {key: string, currentTarget: HTMLInputElement}) => {
+        if (key === 'Enter') {
+            if (currentTarget.value === "") {
+                context.todoListApi.add(currentTarget.value);
+            }
+        }
+    }
+
     return (
         <header className='header'>
             <h1>todos</h1>
             <input type='text'
                    className='new-todo'
                    placeholder='What needs to be done?'
-                   onKeyDown={handleKeyCallback}
+                   onKeyDown={handleKey}
             />
         </header>
     );
