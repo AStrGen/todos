@@ -7,8 +7,9 @@ function Header() {
 
     const handleKey = ({key, currentTarget}: {key: string, currentTarget: HTMLInputElement}) => {
         if (key === 'Enter') {
-            if (currentTarget.value === "") {
+            if (currentTarget.value !== "") {
                 context.todoListApi.add(currentTarget.value);
+                currentTarget.value = "";
             }
         }
     }

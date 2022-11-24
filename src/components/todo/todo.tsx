@@ -20,17 +20,17 @@ function Todo({id, text, done}: TodoItemProps) {
             if (currentTarget.value === "") {
                 context.todoListApi.remove(id);
             } else {
-                context.todoApi.setText(currentTarget.value);
+                context.todoApi.setText(currentTarget.id, currentTarget.value);
                 setEditHidden(true);
             }
         }
     }
 
     return (
-        <li key={id}>
+        <li>
             {editHidden
                 ?   <div className="view">
-                        <Checkbox checked={done} onChange={() => context.todoApi.setDone}/>
+                        <Checkbox checked={done} onChange={() => context.todoApi.changeDone(id)}/>
                         <label onDoubleClick={() => setEditHidden(false)}>{inputText}</label>
                         <DestroyButton onClick={() => context.todoListApi.remove(id)}/>
                     </div>

@@ -1,5 +1,5 @@
-export enum AppRoute {
-    Main = '/',
-    Active = '/active',
-    Completed = '/completed',
+export enum Filter {
+    All = "All",
+    Active = 'Active',
+    Completed = 'Completed',
 }
