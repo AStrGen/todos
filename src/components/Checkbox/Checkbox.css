@@ -1,11 +1,13 @@
 .check__input {
     -webkit-appearance: none;
     -moz-appearance: none;
+    position: relative;
     appearance: none;
     width: 2em;
     height: 2em;
     border-radius: 1em;
     box-shadow: 0 0 0 0.1em lightgray;
+    margin: 1em;
 }
 
 .check__input:checked {
@@ -15,9 +17,9 @@
 .check__input:checked:before {
     content: "";
     position: absolute;
-    top: 22px; left: 6px;
-    width: 0.85em;
-    height: 0.15em;
+    top: 18px; left: 5px;
+    width: 0.65em;
+    height: 0.1em;
     background: darkseagreen;
     transform: rotate(45deg);
 }
@@ -25,9 +27,9 @@
 .check__input:checked:after {
     content: "";
     position: absolute;
-    top: 16px; left: 9px;
-    width: 1.75em;
-    height: 0.15em;
+    top: 13px; left: 7px;
+    width: 1.45em;
+    height: 0.1em;
     background: darkseagreen;
     transform: rotate(-60deg);
 }

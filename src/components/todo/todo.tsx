@@ -2,7 +2,9 @@ import React, {useContext, useState} from "react";
 import Checkbox from "../Checkbox/Checkbox";
 import DestroyButton from "../DestroyButton/DestroyButton";
 import "./Todo.css"
-import {Context, TodoContext} from "../../App";
+import {Context} from "../../App";
+import {KeyBoard} from "../../const";
+import {TodoContext} from "../TodoContext/TodoContext";
 
 type TodoItemProps = {
     id: string;
@@ -16,7 +18,7 @@ function Todo({id, text, done}: TodoItemProps) {
     const [inputText, changeInput] = useState(text);
 
     const setText = ({key, currentTarget}: {key: string, currentTarget: HTMLInputElement}) => {
-        if (key === 'Enter') {
+        if (key === KeyBoard.Enter) {
             if (currentTarget.value === "") {
                 context.todoListApi.remove(id);
             } else {

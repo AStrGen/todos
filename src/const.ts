@@ -3,3 +3,7 @@ export enum Filter {
     Active = 'Active',
     Completed = 'Completed',
 }
+
+export enum KeyBoard {
+    Enter = "Enter"
+}

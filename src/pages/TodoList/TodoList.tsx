@@ -1,8 +1,9 @@
 import {useContext} from 'react';
 import Todo from '../../components/Todo/Todo';
 import "./TodoList.css"
-import {Context, TodoContext, TodoItem} from "../../App";
+import {Context} from "../../App";
 import {Filter} from "../../const";
+import {TodoContext, TodoItem} from "../../components/TodoContext/TodoContext";
 
 function TodoList() {
     const context: TodoContext = useContext(Context);

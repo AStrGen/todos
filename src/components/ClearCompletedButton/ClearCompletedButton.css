@@ -1,0 +1,10 @@
+.clear-completed {
+    appearance: none;
+    border: none;
+    background-color: white;
+    color: gray;
+}
+.clear-completed:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

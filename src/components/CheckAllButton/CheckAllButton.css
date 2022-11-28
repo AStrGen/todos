@@ -1,0 +1,15 @@
+.check-all {
+    position: absolute;
+    background: none;
+    border: none;
+    transform: rotate(90deg);
+    font-size: 20px;
+    color: gray;
+    left: 25px;
+    top: 16px;
+    padding: 0;
+}
+
+.check-all:before {
+    content: "❯";
+}
